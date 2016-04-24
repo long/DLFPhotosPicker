@@ -72,7 +72,9 @@
         
         DLFMasterViewController *masterVC = [firstVC.viewControllers firstObject];
         DLFDetailViewController *detailVC = [secondVC.viewControllers firstObject];
-        
+      
+        detailVC.rightBarButtonTitle = self.rightBarButtonTitle;
+      
         [masterVC setDelegate:self];
         [detailVC setDelegate:self];
     } else {
