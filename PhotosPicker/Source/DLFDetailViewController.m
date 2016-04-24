@@ -108,7 +108,9 @@ static NSString * const CellReuseIdentifier = @"photoCell";
 - (void)viewDidLoad {
     self.imageManager = [PHImageManager defaultManager];
     self.imagesCache = [[NSCache alloc] init];
-    
+  
+    if (!self.rightBarButtonTitle) { self.rightBarButtonTitle = @"Next"; }
+  
     [self.collectionView registerClass:[DLFPhotoCell class] forCellWithReuseIdentifier:CellReuseIdentifier];
     [self.collectionView setBackgroundColor:[UIColor whiteColor]];
     
@@ -147,7 +149,7 @@ static NSString * const CellReuseIdentifier = @"photoCell";
     }
     
     if (multipleSelections) {
-        UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Next", nil) style:UIBarButtonItemStyleDone target:self action:@selector(didTapNextButton:)];
+        UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(self.rightBarButtonTitle, nil) style:UIBarButtonItemStyleDone target:self action:@selector(didTapNextButton:)];
         UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
         [infoButton addTarget:self action:@selector(didTapHintButton:) forControlEvents:UIControlEventTouchUpInside];
         UIBarButtonItem *hintButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
@@ -202,7 +204,7 @@ static NSString * const CellReuseIdentifier = @"photoCell";
     
     NSString *message2 = NSLocalizedString(@"Tap and hold a photo to zoom in", nil);
     UIAlertController *alert2 = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Long Tap Gesture", nil) message:message2 preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *action2 = [UIAlertAction actionWithTitle:NSLocalizedString(@"Next", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:NSLocalizedString(self.rightBarButtonTitle, nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         [self presentViewController:alert animated:YES completion:nil];
     }];
     [alert2 addAction:action2];

@@ -31,4 +31,5 @@
 @property (nonatomic, strong) DLFPhotosSelectionManager *selectionManager;
 @property (nonatomic, weak) id<DLFDetailViewControllerDelegate> delegate;
 
+@property (nonatomic, strong) NSString *rightBarButtonTitle;
 @end
