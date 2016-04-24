@@ -72,6 +72,12 @@
 @property (nonatomic, weak) id<DLFPhotosPickerViewControllerDelegate> photosPickerDelegate;
 
 /**
+ *
+ *
+ */
+@property (nonatomic, strong) NSString *rightBarButtonTitle;
+
+/**
  *  Set to NO to disable multiple selections. Default YES.
  */
 @property (nonatomic, assign) BOOL multipleSelections;
