@@ -10,7 +10,7 @@
 
 @interface DLFPhotoCell ()
 
-@property (nonatomic, weak) UIView *highlightedView;
+@property (nonatomic, weak) UIImageView *highlightedView;
 
 @end
 
@@ -40,11 +40,17 @@
         UIView *view = [[UIView alloc] initWithFrame:self.imageView.frame];
         [view setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.5]];
         [view setAutoresizingMask:UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight];
-        [view.layer setBorderColor:[UIColor redColor].CGColor];
-        [view.layer setBorderWidth:5];
+        [view.layer setBorderColor:[UIColor blueColor].CGColor];
+        [view.layer setBorderWidth:3];
         view.hidden = YES;
         [self.contentView addSubview:view];
         self.highlightedView = view;
+        
+//        CGFloat checkmarkSize = 16.0;
+//        self.highlightedView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_alreadyadded_sml"]];
+//        self.highlightedView.frame = CGRectMake(self.imageView.frame.size.width - checkmarkSize - 5.0, self.imageView.frame.size.height - checkmarkSize - 5.0, checkmarkSize, checkmarkSize);
+//        self.highlightedView.hidden = YES;
+//        [self.contentView addSubview:self.highlightedView];
     }
     [self.highlightedView setHidden:!highlighted];
 }

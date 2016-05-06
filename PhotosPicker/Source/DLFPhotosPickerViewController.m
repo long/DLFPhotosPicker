@@ -27,6 +27,7 @@
     self = [super init];
     if (self) {
         _multipleSelections = YES;
+        _maxSelections = NSIntegerMax;
         
         self.splitVC = [[UISplitViewController alloc] init];
         [self.splitVC setDelegate:self];
@@ -45,6 +46,7 @@
     [super awakeFromNib];
     
     _multipleSelections = YES;
+    _maxSelections = NSUIntegerMax;
 }
 
 - (void)viewDidLoad {
@@ -167,6 +169,11 @@ separateSecondaryViewControllerFromPrimaryViewController:(UINavigationController
 - (BOOL)multipleSelectionsInDetailViewController:(DLFDetailViewController *)detailViewController {
     return self.multipleSelections;
 }
+
+- (NSInteger)maxSelectionsInDetailViewController:(DLFDetailViewController *)detailViewController {
+    return self.maxSelections;
+}
+
 - (void)detailViewController:(DLFDetailViewController *)detailViewController didSelectPhoto:(PHAsset *)photo {
     if (self.photosPickerDelegate && [self.photosPickerDelegate respondsToSelector:@selector(photosPicker:detailViewController:didSelectPhoto:)]) {
         [self.photosPickerDelegate photosPicker:self detailViewController:detailViewController didSelectPhoto:photo];

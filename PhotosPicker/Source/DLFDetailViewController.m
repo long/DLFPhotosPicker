@@ -46,7 +46,7 @@ typedef NS_ENUM(NSInteger, TouchPointInCell) {
 @end
 
 CGSize cellSize(UICollectionView *collectionView) {
-    int numberOfColumns = 3;
+    int numberOfColumns = 4;
     
     // this is to fix jerky scrolling in iPhone 6 plus
     if ([[UIScreen mainScreen] scale] > 2) {
@@ -150,12 +150,12 @@ static NSString * const CellReuseIdentifier = @"photoCell";
     
     if (multipleSelections) {
         UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(self.rightBarButtonTitle, nil) style:UIBarButtonItemStyleDone target:self action:@selector(didTapNextButton:)];
-        UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-        [infoButton addTarget:self action:@selector(didTapHintButton:) forControlEvents:UIControlEventTouchUpInside];
-        UIBarButtonItem *hintButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
-        UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-        spaceItem.width = 20;
-        [self.navigationItem setRightBarButtonItems:@[nextButton, spaceItem, hintButton]];
+//        UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+//        [infoButton addTarget:self action:@selector(didTapHintButton:) forControlEvents:UIControlEventTouchUpInside];
+//        UIBarButtonItem *hintButton = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
+//        UIBarButtonItem *spaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+//        spaceItem.width = 20;
+        [self.navigationItem setRightBarButtonItems:@[nextButton]];
         [nextButton setEnabled:([[[DLFPhotosSelectionManager sharedManager] selectedAssets] count]>0)?YES:NO];
         self.nextButton = nextButton;
     }
@@ -490,7 +490,7 @@ static NSString * const CellReuseIdentifier = @"photoCell";
     if ([gestureRecognizer isEqual:self.panGesture]) {
         CGPoint translation = [self.panGesture velocityInView:self.collectionView];
         CGSize size = cellSize(self.collectionView);
-        return fabs(translation.y) <= size.height/3 && fabs(translation.x)  >= 10;
+        return fabs(translation.y) <= size.height/4 && fabs(translation.x)  >= 10;
     }
     return YES;
 }
@@ -508,7 +508,12 @@ static NSString * const CellReuseIdentifier = @"photoCell";
             [self.selectionManager removeAsset:asset];
         }
     } else {
-        if (indexPath) {
+        NSInteger maxSelections = NSIntegerMax;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(maxSelectionsInDetailViewController:)]) {
+            maxSelections = [self.delegate maxSelectionsInDetailViewController:self];
+        }
+
+        if (indexPath && ([self.selectionManager.selectedAssets count] < maxSelections)) {
             [self.selectionManager addSelectedAsset:asset];
             selected = YES;
         }

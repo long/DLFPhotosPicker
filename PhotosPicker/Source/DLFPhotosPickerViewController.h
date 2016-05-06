@@ -82,4 +82,6 @@
  */
 @property (nonatomic, assign) BOOL multipleSelections;
 
+@property (nonatomic, assign) NSInteger maxSelections;
+
 @end
